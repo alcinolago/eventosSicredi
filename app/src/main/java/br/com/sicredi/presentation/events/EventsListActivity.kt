@@ -1,11 +1,12 @@
-package br.com.sicredi
+package br.com.sicredi.presentation.events
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.sicredi.R
 
-class MainActivity : AppCompatActivity() {
+class EventsListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_list_events)
     }
 }
