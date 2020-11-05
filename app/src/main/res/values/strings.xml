@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Eventos</string>
+    <string name="contentDescription">contentDescription</string>
+    <string name="action_check_in">Check-in</string>
+    <string name="button_check_in">Fazer Check-in</string>
+    <string name="share_title">Compartilhar Evento</string>
+    <string name="checkin_success">Check-In Realizado com sucesso!</string>
+    <string name="hint_checkin_name">Informe seu nome</string>
+    <string name="hint_checkin_email">Informe seu e-mail</string>
+    <string name="error_input_name">Por favor insira seu nome!</string>
+    <string name="error_input_email">Por favor insira seu e-mail!</string>
 </resources>
