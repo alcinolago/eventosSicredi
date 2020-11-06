@@ -10,13 +10,16 @@ import br.com.sicredi.core.extension.rx.observe
 import br.com.sicredi.data.model.events.CheckInData
 import br.com.sicredi.data.model.events.EventsResponse
 import br.com.sicredi.domain.interactor.EventsInteractor
+import br.com.sicredi.provider.scheduler.BaseSchedulerProvider
+import br.com.sicredi.provider.scheduler.SchedulerProvider
 import br.com.sicredi.provider.string.StringProvider
 import br.com.sicredi.rx.DefaultCompletableObserver
 import br.com.sicredi.rx.DefaultObservable
 
 class EventDetailViewModel(
     private val eventInteractor: EventsInteractor,
-    private val stringProvider: StringProvider
+    private val stringProvider: StringProvider,
+    private val schedulerProvider: BaseSchedulerProvider
 ) : ViewModel() {
 
     val eventMutableLiveData = MutableLiveData<EventsResponse>()
@@ -32,7 +35,7 @@ class EventDetailViewModel(
 
         isLoading.value = true
 
-        eventInteractor.getEventById(eventId).observe(
+        eventInteractor.getEventById(eventId).observe(schedulerProvider,
             object : DefaultObservable<EventsResponse>() {
                 override fun onNext(event: EventsResponse) {
                     eventMutableLiveData.value = event
@@ -42,7 +45,6 @@ class EventDetailViewModel(
 
                 override fun onError(e: Throwable) {
                     super.onError(e)
-                    Log.d("ERROR", e.message!!)
                     isLoading.value = false
                 }
             }
@@ -76,23 +78,28 @@ class EventDetailViewModel(
 
         val checkInData = CheckInData(eventId = eventSelected.value, name = name.value, email = email.value)
 
-        eventInteractor.doCheckIn(checkInData).observe(
+        eventInteractor.doCheckIn(checkInData).observe(schedulerProvider,
             object : DefaultCompletableObserver() {
                 override fun onComplete() {
                     super.onComplete()
-                    eventSelected.value = ""
-                    name.value = ""
-                    email.value = ""
+                    clearData()
                     eventCheckIMessage.value = stringProvider.getString(R.string.checkin_success)
                     isLoading.value = false
                 }
 
                 override fun onError(e: Throwable) {
                     super.onError(e)
-                    Log.d("ERROR", e.message!!)
+                    clearData()
+                    eventCheckIMessage.value = stringProvider.getString(R.string.checkin_error)
                     isLoading.value = false
                 }
             }
         )
+    }
+
+    private fun clearData(){
+        eventSelected.value = ""
+        name.value = ""
+        email.value = ""
     }
 }

@@ -5,6 +5,7 @@
     <string name="button_check_in">Fazer Check-in</string>
     <string name="share_title">Compartilhar Evento</string>
     <string name="checkin_success">Check-In Realizado com sucesso!</string>
+    <string name="checkin_error">Não há mais vagas disponíveis!</string>
     <string name="hint_checkin_name">Informe seu nome</string>
     <string name="hint_checkin_email">Informe seu e-mail</string>
     <string name="error_input_name">Por favor insira seu nome!</string>
